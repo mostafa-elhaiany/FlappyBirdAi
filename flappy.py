@@ -2,9 +2,6 @@ import pygame
 import neat
 import time
 import os
-import random
-
-windowWidth,windowHeight=500,800
 
 birdImages = [
         pygame.transform.scale2x( pygame.image.load( os.path.join( "imgs","bird1.png" ) ) ),
@@ -12,9 +9,7 @@ birdImages = [
         pygame.transform.scale2x( pygame.image.load( os.path.join( "imgs","bird3.png" ) ) )
         ]
 numImages=len(birdImages)
-pipeImage= pygame.transform.scale2x( pygame.image.load( os.path.join( "imgs","pipe.png" ) ) )
 
-backGround= pygame.transform.scale2x( pygame.image.load( os.path.join( "imgs","bg.png" ) ) )
 
 baseImage=pipeImage= pygame.transform.scale2x( pygame.image.load( os.path.join( "imgs","base.png" ) ) )
 
@@ -79,28 +74,6 @@ class Flappy:
     def getMask(self):
         return pygame.mask.from_surface(self.image)
         
-
-def drawWindow(window,bird):
-    window.blit(backGround,(0,0))
-    bird.draw(window)
-    pygame.display.update()
     
-
-def main():
-    bird=Flappy(200,200)
-    run = True
-    clock=pygame.time.Clock()
-    window=pygame.display.set_mode((windowWidth,windowHeight))
-    while(run):
-        clock.tick(30)
-        for event in pygame.event.get():
-            if(event.type==pygame.QUIT):
-                run=False
-        bird.move()
-        drawWindow(window, bird)
-    pygame.quit()
-    quit()          
-    
-main()    
     
     
