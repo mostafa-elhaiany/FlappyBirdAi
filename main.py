@@ -9,22 +9,27 @@ from base import Base
 backGround= pygame.transform.scale2x( pygame.image.load( os.path.join( "imgs","bg.png" ) ) )
 windowWidth,windowHeight=500,700
 
+pygame.font.init()
+
+statFont=pygame.font.SysFont("comicsans",50)
 
 
-
-def drawWindow(window,bird,pipes,base):
+def drawWindow(window,bird,pipes,base,score):
     window.blit(backGround,(0,0))
     bird.draw(window)
     base.draw(window)
     for pipe in pipes:
         pipe.draw(window)
+        
+    text = statFont.render("Score: "+str(score),1, (255,255,255))
+    window.blit(text,(windowWidth - 10 - text.get_width(), 10))
     pygame.display.update()
     
 
 def main():
     bird=Flappy(230,350)
     base=Base(windowHeight-70)
-    pipes= [Pipe(windowWidth+10)]
+    pipes= [Pipe(windowWidth+50)]
     score=0
     run = True
     clock=pygame.time.Clock()
@@ -51,9 +56,15 @@ def main():
        
         if(addPipe):
             score+=1
-            newPipes.append(Pipe(windowWidth+10))
+            newPipes.append(Pipe(windowWidth+50))
         pipes=newPipes                
-        drawWindow(window, bird,pipes,base)
+       
+        if(bird.y+bird.image.get_height()>=windowHeight):
+            print("fallinggg")
+            
+        
+        
+        drawWindow(window, bird,pipes,base,score)
     pygame.quit()
     quit()          
     
